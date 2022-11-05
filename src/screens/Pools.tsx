@@ -6,12 +6,12 @@ import { Button } from '../components/Button';
 import { EmptyPoolList } from '../components/EmptyPoolList';
 import { Header } from '../components/Header';
 import { Loading } from '../components/Loading';
-import { PoolCard, PoolPros } from '../components/PoolCard';
+import { PoolCard, PoolCardProps } from '../components/PoolCard';
 import { api } from '../services/api';
 
 export function Pools() {
   const [isLoading, setIsLoading] = useState(true);
-  const [pools, setPools] = useState<PoolPros[]>([]);
+  const [pools, setPools] = useState<PoolCardProps[]>([]);
   const { navigate } = useNavigation();
   const toast = useToast();
 
@@ -64,7 +64,12 @@ export function Pools() {
         <FlatList
           data={pools}
           keyExtractor={item => item.id}
-          renderItem={({ item }) => <PoolCard data={item} />}
+          renderItem={({ item }) => (
+            <PoolCard
+              data={item}
+              onPress={() => navigate('details', { id: item.id })}
+            />
+          )}
           px={5}
           showsVerticalScrollIndicator={false}
           _contentContainerStyle={{ pb: 10 }}
