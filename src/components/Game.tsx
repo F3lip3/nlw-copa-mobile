@@ -41,8 +41,6 @@ export function Game({
     .locale(ptBr)
     .format('DD [de] MMMM [de] YYYY [às] HH:00[h]');
 
-  console.info('GAME:', data);
-
   return (
     <VStack
       w="full"

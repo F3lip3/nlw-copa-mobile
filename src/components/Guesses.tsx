@@ -1,5 +1,6 @@
+import { useFocusEffect } from '@react-navigation/native';
 import { FlatList, useToast } from 'native-base';
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { api } from '../services/api';
 import { Game, GameProps } from './Game';
 import { Loading } from './Loading';
@@ -70,9 +71,11 @@ export function Guesses({ poolId }: Props) {
     }
   }
 
-  useEffect(() => {
-    if (poolId) fetchGames();
-  }, [poolId]);
+  useFocusEffect(
+    useCallback(() => {
+      if (poolId) fetchGames();
+    }, [poolId])
+  );
 
   if (isLoading) {
     return <Loading />;

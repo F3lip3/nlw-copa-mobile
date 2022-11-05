@@ -1,4 +1,5 @@
 import { HStack } from 'native-base';
+import { useState } from 'react';
 import CountryFlag from 'react-native-country-flag';
 
 import { Input } from './Input';
@@ -11,6 +12,13 @@ interface Props {
 }
 
 export function Team({ code, points, position, onChangeText }: Props) {
+  const [teamPoints, setTeamPoints] = useState(points);
+
+  function handleTeamPointsChange(value: string) {
+    setTeamPoints(value);
+    onChangeText(value);
+  }
+
   return (
     <HStack alignItems="center">
       {position === 'left' && (
@@ -23,8 +31,8 @@ export function Team({ code, points, position, onChangeText }: Props) {
         textAlign="center"
         fontSize="xs"
         keyboardType="numeric"
-        onChangeText={onChangeText}
-        value={points}
+        onChangeText={handleTeamPointsChange}
+        value={teamPoints}
       />
 
       {position === 'right' && (
